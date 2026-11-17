@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3eb">
+    <meta name="description" content="A little help deciding what to do together.">
+    <title>Tara &amp; Ben's Date Night Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="wordmark" href="#" data-action="home" aria-label="Tara and Ben's Date Night Quiz home">
+          <span class="wordmark-icon" aria-hidden="true">✳</span>
+          Tara &amp; Ben's Date Night Quiz
+        </a>
+        <span class="header-note">For days when we can't decide</span>
+      </header>
+
+      <main id="app" aria-live="polite">
+        <section class="view home-view" data-view="home">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> SO, WHAT ARE WE FEELING?</p>
+            <h1>Tara &amp; Ben's<br><em>Date Night Quiz</em></h1>
+            <p class="hero-description">A little help deciding what to do together.</p>
+            <p class="hero-detail">For when we've both said “I don't mind” and neither of us has suggested anything.</p>
+            <div class="hero-actions">
+              <button class="button button-primary" data-action="create">Let's find something <span aria-hidden="true">↗</span></button>
+              <span class="micro-copy">Five questions. Then we're done dithering.</span>
+            </div>
+            <div class="join-card">
+              <div>
+                <span class="join-title">Got a code?</span>
+                <span class="join-caption">Pop in the one your person sent.</span>
+              </div>
+              <form id="join-form" class="join-form">
+                <label class="sr-only" for="join-code">Session code</label>
+                <input id="join-code" name="code" maxlength="14" placeholder="e.g. ABCD-EFGH-JKLM" autocomplete="off" required>
+                <button class="button button-small" type="submit">Join in</button>
+              </form>
+            </div>
+            <p class="mode-note" id="mode-note"></p>
+          </div>
+          <div class="hero-collage" role="group" aria-label="Snapshots from Tara and Ben's adventures">
+            <figure class="collage-photo photo-kalbarri">
+              <img src="images/kalbarri.png" alt="Tara and Ben out among Kalbarri's red cliffs." fetchpriority="high">
+            </figure>
+            <figure class="collage-photo photo-milford">
+              <img src="images/milford.png" alt="A quiet stop beside the mountains at Milford." fetchpriority="high">
+            </figure>
+            <figure class="collage-photo photo-car">
+              <img src="images/car.png" alt="Tara and Ben squeezing in a photo by a car engine.">
+            </figure>
+            <figure class="collage-photo photo-film">
+              <img src="images/film.png" alt="A camera screen holding a photo of Tara and Ben.">
+            </figure>
+            <figure class="collage-photo photo-shadow">
+              <img src="images/shadow.png" alt="Sunlit red-rock country, with a familiar shadow in the frame.">
+            </figure>
+          </div>
+          <section class="recent-section">
+            <div class="section-heading">
+              <div><p class="eyebrow">THE ONES WE ACTUALLY DID</p><h2>Our date journal</h2></div>
+              <span class="recent-count" id="recent-count">0 dates</span>
+            </div>
+            <div class="recent-card" id="recent-dates">
+              <span class="recent-icon" aria-hidden="true">♡</span>
+              <p>Nothing in the journal yet.<br><span>Mark a date “We did this!” and it'll turn up here.</span></p>
+            </div>
+          </section>
+        </section>
+
+        <section class="view quiz-view" data-view="quiz" hidden>
+          <div class="quiz-topline">
+            <button class="text-button" data-action="home">← Home</button>
+            <span class="person-pill" id="person-label">YOUR TURN</span>
+          </div>
+          <div class="quiz-layout">
+            <aside class="quiz-aside">
+              <p class="eyebrow">TARA &amp; BEN'S DATE NIGHT QUIZ</p>
+              <h1>What are we<br>actually <em>in the mood for?</em></h1>
+              <p>Pick anything you'd be up for. More than one is fine; it just means either works.</p>
+              <div class="share-box">
+                <span class="share-label">OUR SESSION CODE</span>
+                <div class="share-code-row"><strong id="session-code">----</strong><button class="icon-button" data-action="copy-link" aria-label="Copy invitation link" title="Copy invitation link">↗</button></div>
+                <span class="share-hint" id="share-hint">Share this code with your person.</span>
+              </div>
+            </aside>
+            <div class="quiz-panel">
+              <div class="progress-label"><span id="question-number">QUESTION 1 OF 5</span><span id="question-progress">20%</span></div>
+              <div class="progress-track"><span id="progress-fill"></span></div>
+              <p class="question-kicker" id="question-kicker"></p>
+              <div class="question-title-row">
+                <span class="question-symbol" id="question-symbol" aria-hidden="true"></span>
+                <h2 id="question-title"></h2>
+              </div>
+              <p class="question-help">Choose all that sound good.</p>
+              <div class="answer-grid" id="answer-grid"></div>
+              <p class="validation-message" id="quiz-validation" role="status"></p>
+              <div class="quiz-controls">
+                <button class="button button-quiet" id="back-button" data-action="back">← Back</button>
+                <button class="button button-primary" id="next-button" data-action="next">Next question <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view waiting-view" data-view="waiting" hidden>
+          <div class="waiting-card">
+            <div class="waiting-flower" aria-hidden="true">✿</div>
+            <p class="eyebrow">JUST WAITING ON THE OTHER ONE</p>
+            <h1>One set down.<br><em>One to go.</em></h1>
+            <p id="waiting-message">Your answers stay private until we're both done. No peeking. We'll see what fits after that.</p>
+            <div class="waiting-progress"><span class="waiting-dot done"></span><span class="waiting-line"></span><span class="waiting-dot"></span></div>
+            <span class="waiting-count" id="waiting-count">1 of 2 people have finished</span>
+            <div class="waiting-code"><span>OUR CODE</span><strong id="waiting-code">----</strong><button class="button button-small" data-action="copy-link">Copy invite link</button></div>
+            <div class="waiting-actions">
+              <button class="button button-secondary" data-action="edit-answers">Edit my answers</button>
+              <button class="button button-primary demo-second-button" data-action="demo-second">Continue as Person 2</button>
+            </div>
+            <p class="demo-hint" id="demo-hint"></p>
+            <button class="text-button waiting-home" data-action="home">Back for a sec</button>
+          </div>
+        </section>
+
+        <section class="view results-view" data-view="results" hidden>
+          <div class="results-heading">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> OKAY, HERE'S WHAT WE'VE GOT</p>
+            <h1>Looks like we've got<br><em>a few options.</em></h1>
+            <p>These work for both of us. Have a look and see what feels right today.</p>
+            <div class="result-actions">
+              <button class="button button-primary" data-action="surprise">Pick for us <span aria-hidden="true">✦</span></button>
+              <button class="button button-secondary" data-action="new-quiz">Start another quiz</button>
+            </div>
+            <p class="surprise-message" id="surprise-message" role="status"></p>
+          </div>
+          <div class="results-meta"><span id="match-count">0 ideas for us</span><span>The score is a rough fit, not a prediction.</span></div>
+          <div class="activity-grid" id="activity-grid"></div>
+          <div class="empty-results" id="empty-results" hidden>
+            <span aria-hidden="true">☁</span><h2>Nothing fits both of us today.</h2>
+            <p>Try changing a time, weather, energy or budget pick, then we'll have another look.</p>
+            <button class="button button-secondary" data-action="edit-answers">Edit my answers</button>
+          </div>
+          <details class="eliminated-section">
+            <summary><span>What didn't make the cut?</span><span class="summary-count" id="eliminated-count">0 activities</span></summary>
+            <p class="eliminated-intro">Here's why these didn't work this time.</p>
+            <div class="eliminated-list" id="eliminated-list"></div>
+          </details>
+          <p class="budget-disclaimer">Budget numbers are estimates. Change them in <code>activities.js</code> if they don't match what you're seeing.</p>
+        </section>
+
+        <section class="view error-view" data-view="error" hidden>
+          <div class="error-card">
+            <span aria-hidden="true">☁</span><h1>Well, that went sideways.</h1>
+            <p id="error-message">Please try again.</p>
+            <button class="button button-secondary" data-action="home">Back to home</button>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer"><span>TARA &amp; BEN'S DATE NIGHT QUIZ</span><span>Usually better than saying “I don't mind.”</span></footer>
+    </div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
