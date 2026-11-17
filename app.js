@@ -370,7 +370,7 @@ async function startApp() {
     }
     if (!session && codeInUrl) setSession(await store.join(codeInUrl));
     if (session?.answers) renderResults();
-    else if (session?.submittedCount) renderWaiting();
+    else if (session?.myAnswers) renderWaiting();
     else if (session?.id) initializeQuiz(session.myAnswers);
   } catch (error) {
     setError(error);
